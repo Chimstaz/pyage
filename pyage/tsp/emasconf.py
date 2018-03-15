@@ -23,9 +23,9 @@ from pyage.tsp.initializer import EmasInitializer
 
 logger = logging.getLogger(__name__)
 
-number_of_points_in_mutation = 20
+number_of_points_in_mutation = 1
 agents_count = 50
-stop_condition = lambda: StepLimitStopCondition(2000)
+stop_condition = lambda: StepLimitStopCondition(8000)
 
 logger.debug("EMAS, %s agents", agents_count)
 agents = root_agents_factory(agents_count, AggregateAgent)
