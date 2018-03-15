@@ -9,6 +9,7 @@ class StepStatistics(Statistics):
     def __init__(self, output_file_name='fitness_pyage.txt'):
         self.history = []
         self.fitness_output = open(output_file_name, 'a')
+        self.start = time.time()
 
     def __del__(self):
         self.fitness_output.close()
@@ -20,8 +21,9 @@ class StepStatistics(Statistics):
         try:
             best_fitness = max(a.get_fitness() for a in agents)
             logger.info(best_fitness)
+            logger.info("best genotype: %s", max(agents, key=lambda a: a.get_fitness()).get_best_genotype())
             self.history.append(best_fitness)
-            if (step_count - 1) % 100 == 0:
+            if (step_count - 1) % 2 == 0:
                 self.append(best_fitness, step_count)
         except:
             logging.exception("")
@@ -29,7 +31,8 @@ class StepStatistics(Statistics):
     def summarize(self, agents):
         try:
             logger.debug(self.history)
-            logger.debug("best genotype: %s", max(agents, key=lambda a: a.get_fitness()).get_best_genotype())
+            logger.info("best genotype: %s", max(agents, key=lambda a: a.get_fitness()).get_best_genotype())
+            logger.info("time: %s", str(time.time() - self.start))
         except:
             logging.exception("")
 

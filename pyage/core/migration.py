@@ -40,8 +40,7 @@ class Pyro4Migration(Migration):
 class ParentMigration(Migration):
     def migrate(self, agent):
         try:
-            if random.random() > 0.95 and len(agent.parent.get_agents()) > 1 and len(
-                agent.parent.parent.get_agents()) > 1:
+            if random.random() > 0.95 and len(agent.parent.get_agents()) > 1:  # and len(agent.parent.parent.get_agents()) > 1:
                 logger.debug("migrating!")
                 aggregate = self.__get_random_aggregate(agent)
                 logger.debug(aggregate.get_address())
